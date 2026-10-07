@@ -1,0 +1,87 @@
+table DimProduct
+	lineageTag: bd2dd8ab-c459-41c5-96e4-5090db227cd4
+
+	column product_key
+		dataType: string
+		isHidden
+		isKey
+		summarizeBy: none
+		sourceColumn: product_key
+		lineageTag: 3e2e5800-9deb-45d2-8ce4-f74a43e6c340
+
+	column product_id
+		dataType: string
+		summarizeBy: none
+		sourceColumn: product_id
+		lineageTag: 89d459b4-6d20-4e35-8f76-1dd1990728f1
+
+	column sku
+		dataType: string
+		summarizeBy: none
+		sourceColumn: sku
+		lineageTag: 6a34e39e-2de4-4262-95b9-1e7792b660ec
+
+	column product_name
+		dataType: string
+		summarizeBy: none
+		sourceColumn: product_name
+		lineageTag: 954ed0f4-a8ca-4609-a428-b86bb8f35ae4
+
+	column category
+		dataType: string
+		summarizeBy: none
+		sourceColumn: category
+		lineageTag: 5b18c5d9-376d-4da4-a7bc-1f32d7f681c5
+
+	column resin_type
+		dataType: string
+		summarizeBy: none
+		sourceColumn: resin_type
+		lineageTag: 4a89ad0e-087a-4b2d-b7f9-d7a4e3fe6388
+
+	column unit_weight_kg
+		dataType: double
+		summarizeBy: none
+		sourceColumn: unit_weight_kg
+		lineageTag: 795eafde-3d4a-42b7-a6c9-cb13974c2554
+
+	column unit_price
+		dataType: double
+		formatString: $#,##0.00
+		sourceColumn: unit_price
+		lineageTag: cc6b1290-a909-4509-9273-6e884ea9167c
+
+	column unit_cost
+		dataType: double
+		formatString: $#,##0.00
+		sourceColumn: unit_cost
+		lineageTag: 4e4d9957-6b4c-4a75-b9ea-665b1b16d012
+
+	column effective_from
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		summarizeBy: none
+		sourceColumn: effective_from
+		lineageTag: d6f3e1a3-6bd1-47cb-8a2a-e6ba4d792956
+
+	column effective_to
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		summarizeBy: none
+		sourceColumn: effective_to
+		lineageTag: 65e618d6-7e2c-4440-b946-f8dc5ae05c52
+
+	column is_current
+		dataType: boolean
+		summarizeBy: none
+		sourceColumn: is_current
+		lineageTag: 8d4256a9-27b2-4f83-98a3-2749a0b68b20
+
+	partition DimProduct = m
+		mode: import
+		source =
+				let
+					Source = Sql.Database("tcwsjavlhnnetiifpbcg2bxofm-su3t4k5jz3aufhtbw7nffxawby.datawarehouse.fabric.microsoft.com", "kreate_lakehouse"),
+					Data = Source{[Schema = "dbo", Item = "DimProduct"]}[Data]
+				in
+					Data

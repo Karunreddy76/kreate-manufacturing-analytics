@@ -1,0 +1,107 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json",
+  "name": "tblRisk",
+  "position": {
+    "x": 752,
+    "y": 412,
+    "z": 56000,
+    "height": 300,
+    "width": 512,
+    "tabOrder": 56
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimPlant"
+                    }
+                  },
+                  "Property": "plant_name"
+                }
+              },
+              "queryRef": "DimPlant.plant_name",
+              "nativeQueryRef": "plant_name"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactInventoryDaily"
+                    }
+                  },
+                  "Property": "resin_type"
+                }
+              },
+              "queryRef": "FactInventoryDaily.resin_type",
+              "nativeQueryRef": "resin_type"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Resin On Hand Kg"
+                }
+              },
+              "queryRef": "_Measures.Resin On Hand Kg",
+              "nativeQueryRef": "Resin On Hand Kg"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Avg Daily Resin Consumption Kg"
+                }
+              },
+              "queryRef": "_Measures.Avg Daily Resin Consumption Kg",
+              "nativeQueryRef": "Avg Daily Resin Consumption Kg"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Days of Supply"
+                }
+              },
+              "queryRef": "_Measures.Days of Supply",
+              "nativeQueryRef": "Days of Supply"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Is Stockout Risk"
+                }
+              },
+              "queryRef": "_Measures.Is Stockout Risk",
+              "nativeQueryRef": "Is Stockout Risk"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,55 @@
+table FactRetailPOS
+	lineageTag: e083019e-a94d-4aaa-a42a-d9f2fb7e01b1
+
+	column date_key
+		dataType: int64
+		isHidden
+		summarizeBy: none
+		sourceColumn: date_key
+		lineageTag: 6653198a-43f2-44b3-9c31-600183e5d0f6
+
+	column sale_date
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		summarizeBy: none
+		sourceColumn: sale_date
+		lineageTag: 121ea62b-bdd9-4c2a-a808-0e747cf10004
+
+	column retailer_key
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: retailer_key
+		lineageTag: b4c4bce4-94bc-48a2-b737-b7028e85563c
+
+	column product_key
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: product_key
+		lineageTag: ec4fe968-5b25-405c-a735-b0beac0326b7
+
+	column sold_qty
+		dataType: int64
+		sourceColumn: sold_qty
+		lineageTag: 8b4054d2-97f4-4a01-bce7-ac3ffb03279e
+
+	column returns_qty
+		dataType: int64
+		sourceColumn: returns_qty
+		lineageTag: 9461f012-7570-4201-b634-c76db62642b0
+
+	column promo_flag
+		dataType: int64
+		summarizeBy: none
+		sourceColumn: promo_flag
+		lineageTag: 71b44d79-e492-4e69-911f-e6b074a830a6
+
+	partition FactRetailPOS = m
+		mode: import
+		source =
+				let
+					Source = Sql.Database("tcwsjavlhnnetiifpbcg2bxofm-su3t4k5jz3aufhtbw7nffxawby.datawarehouse.fabric.microsoft.com", "kreate_lakehouse"),
+					Data = Source{[Schema = "dbo", Item = "FactRetailPOS"]}[Data]
+				in
+					Data

@@ -1,0 +1,73 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json",
+  "name": "mtxMachPlant",
+  "position": {
+    "x": 752,
+    "y": 124,
+    "z": 19000,
+    "height": 276,
+    "width": 512,
+    "tabOrder": 19
+  },
+  "visual": {
+    "visualType": "pivotTable",
+    "query": {
+      "queryState": {
+        "Rows": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimMachine"
+                    }
+                  },
+                  "Property": "machine_name"
+                }
+              },
+              "queryRef": "DimMachine.machine_name",
+              "nativeQueryRef": "machine_name"
+            }
+          ]
+        },
+        "Columns": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimPlant"
+                    }
+                  },
+                  "Property": "plant_name"
+                }
+              },
+              "queryRef": "DimPlant.plant_name",
+              "nativeQueryRef": "plant_name"
+            }
+          ]
+        },
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Scrap %"
+                }
+              },
+              "queryRef": "_Measures.Scrap %",
+              "nativeQueryRef": "Scrap %"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

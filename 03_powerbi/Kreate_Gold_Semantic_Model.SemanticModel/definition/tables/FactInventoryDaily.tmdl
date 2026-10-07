@@ -1,0 +1,64 @@
+table FactInventoryDaily
+	lineageTag: d678b862-65e1-43d2-b6e6-0eda31d62614
+
+	column date_key
+		dataType: int64
+		isHidden
+		summarizeBy: none
+		sourceColumn: date_key
+		lineageTag: d59e2941-fc92-482a-989e-33ccdf6f7c24
+
+	column inventory_date
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		summarizeBy: none
+		sourceColumn: inventory_date
+		lineageTag: 8521498d-1283-4c98-80f5-a0b7f4e42507
+
+	column plant_key
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: plant_key
+		lineageTag: 61e26a09-8fd9-423e-a808-2236e615701a
+
+	column plant_id
+		dataType: string
+		summarizeBy: none
+		sourceColumn: plant_id
+		lineageTag: faacd737-3928-4884-8ed1-a4bc827fa92d
+
+	column resin_type
+		dataType: string
+		summarizeBy: none
+		sourceColumn: resin_type
+		lineageTag: 04ffcc22-f5ab-4670-a5ef-6e6bff0b8157
+
+	column on_hand_kg
+		dataType: double
+		sourceColumn: on_hand_kg
+		lineageTag: fa13924d-b722-46b7-98b1-0d8764e6d5f8
+
+	column consumed_kg
+		dataType: double
+		sourceColumn: consumed_kg
+		lineageTag: bab37b3b-aece-4727-b783-c844cc4f5ed0
+
+	column received_kg
+		dataType: double
+		sourceColumn: received_kg
+		lineageTag: aaaa9571-e7d9-466a-8d37-07b6111765f3
+
+	column safety_stock_kg
+		dataType: double
+		sourceColumn: safety_stock_kg
+		lineageTag: b5e99229-5b6f-4660-aee7-45fc1cf4dae8
+
+	partition FactInventoryDaily = m
+		mode: import
+		source =
+				let
+					Source = Sql.Database("tcwsjavlhnnetiifpbcg2bxofm-su3t4k5jz3aufhtbw7nffxawby.datawarehouse.fabric.microsoft.com", "kreate_lakehouse"),
+					Data = Source{[Schema = "dbo", Item = "FactInventoryDaily"]}[Data]
+				in
+					Data

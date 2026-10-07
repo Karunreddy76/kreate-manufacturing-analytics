@@ -1,0 +1,69 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json",
+  "name": "lineDemand",
+  "position": {
+    "x": 752,
+    "y": 124,
+    "z": 66000,
+    "height": 276,
+    "width": 512,
+    "tabOrder": 66
+  },
+  "visual": {
+    "visualType": "lineChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimDate"
+                    }
+                  },
+                  "Property": "YearMonth"
+                }
+              },
+              "queryRef": "DimDate.YearMonth",
+              "nativeQueryRef": "YearMonth"
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "POS Sold Qty 3M Rolling"
+                }
+              },
+              "queryRef": "_Measures.POS Sold Qty 3M Rolling",
+              "nativeQueryRef": "POS Sold Qty 3M Rolling"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Good Qty 3M Rolling"
+                }
+              },
+              "queryRef": "_Measures.Good Qty 3M Rolling",
+              "nativeQueryRef": "Good Qty 3M Rolling"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

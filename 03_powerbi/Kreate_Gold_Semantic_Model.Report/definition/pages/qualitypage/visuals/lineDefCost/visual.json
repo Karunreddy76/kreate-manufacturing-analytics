@@ -1,0 +1,55 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json",
+  "name": "lineDefCost",
+  "position": {
+    "x": 752,
+    "y": 412,
+    "z": 44000,
+    "height": 300,
+    "width": 248,
+    "tabOrder": 44
+  },
+  "visual": {
+    "visualType": "lineChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimDate"
+                    }
+                  },
+                  "Property": "YearMonth"
+                }
+              },
+              "queryRef": "DimDate.YearMonth",
+              "nativeQueryRef": "YearMonth"
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Defect Cost 3M Rolling"
+                }
+              },
+              "queryRef": "_Measures.Defect Cost 3M Rolling",
+              "nativeQueryRef": "Defect Cost 3M Rolling"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

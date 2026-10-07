@@ -1,0 +1,37 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json",
+  "name": "card1",
+  "position": {
+    "x": 492,
+    "y": 8,
+    "z": 50000,
+    "height": 104,
+    "width": 252,
+    "tabOrder": 50
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Avg Daily Resin Consumption Kg"
+                }
+              },
+              "queryRef": "_Measures.Avg Daily Resin Consumption Kg",
+              "nativeQueryRef": "Avg Daily Resin Consumption Kg"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

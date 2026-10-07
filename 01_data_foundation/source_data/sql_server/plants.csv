@@ -1,0 +1,6 @@
+plant_id,plant_name,city,state,timezone,opened_year
+P01,Findlay Plant,Findlay,OH,America/New_York,1987
+P02,Georgetown Plant,Georgetown,TX,America/Chicago,2024
+P03,Tiffin Plant,Tiffin,OH,America/New_York,2026
+P04,Bloomington Plant,Bloomington,IN,America/Indiana/Indianapolis,2015
+P05,Huntsville Plant,Huntsville,AL,America/Chicago,2018

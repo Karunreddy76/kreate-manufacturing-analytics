@@ -1,0 +1,55 @@
+table DimPlant
+	lineageTag: 821ba5f9-d3cb-40cd-bba7-d19692574a98
+
+	column plant_key
+		dataType: string
+		isHidden
+		isKey
+		summarizeBy: none
+		sourceColumn: plant_key
+		lineageTag: 018ad943-d30f-487b-91d6-00841b6941e2
+
+	column plant_id
+		dataType: string
+		summarizeBy: none
+		sourceColumn: plant_id
+		lineageTag: 336cf63a-1d45-444b-8439-cd541fc60a11
+
+	column plant_name
+		dataType: string
+		summarizeBy: none
+		sourceColumn: plant_name
+		lineageTag: ec45a496-f57d-4023-812e-26100e59a01b
+
+	column city
+		dataType: string
+		summarizeBy: none
+		sourceColumn: city
+		lineageTag: 80744725-6aa6-4dbe-ab82-02f77bdbe716
+
+	column state
+		dataType: string
+		summarizeBy: none
+		sourceColumn: state
+		lineageTag: 0c079d05-5660-4335-a720-f8ec8fb12801
+
+	column timezone
+		dataType: string
+		summarizeBy: none
+		sourceColumn: timezone
+		lineageTag: c986baa1-7bac-4dff-9144-b47e34b1e994
+
+	column opened_year
+		dataType: int64
+		summarizeBy: none
+		sourceColumn: opened_year
+		lineageTag: daf8bd1f-6ca1-4874-b52c-c350582a6301
+
+	partition DimPlant = m
+		mode: import
+		source =
+				let
+					Source = Sql.Database("tcwsjavlhnnetiifpbcg2bxofm-su3t4k5jz3aufhtbw7nffxawby.datawarehouse.fabric.microsoft.com", "kreate_lakehouse"),
+					Data = Source{[Schema = "dbo", Item = "DimPlant"]}[Data]
+				in
+					Data

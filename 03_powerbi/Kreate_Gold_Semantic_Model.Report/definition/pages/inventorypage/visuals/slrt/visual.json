@@ -1,0 +1,37 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json",
+  "name": "slrt",
+  "position": {
+    "x": 8,
+    "y": 246,
+    "z": 58000,
+    "height": 230,
+    "width": 210,
+    "tabOrder": 58
+  },
+  "visual": {
+    "visualType": "slicer",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactInventoryDaily"
+                    }
+                  },
+                  "Property": "resin_type"
+                }
+              },
+              "queryRef": "FactInventoryDaily.resin_type",
+              "nativeQueryRef": "resin_type"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

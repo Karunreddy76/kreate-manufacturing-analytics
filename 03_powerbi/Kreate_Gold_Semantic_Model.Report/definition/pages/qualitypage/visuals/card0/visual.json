@@ -1,0 +1,37 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json",
+  "name": "card0",
+  "position": {
+    "x": 232,
+    "y": 8,
+    "z": 38000,
+    "height": 104,
+    "width": 336,
+    "tabOrder": 38
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Defect Qty"
+                }
+              },
+              "queryRef": "_Measures.Defect Qty",
+              "nativeQueryRef": "Defect Qty"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

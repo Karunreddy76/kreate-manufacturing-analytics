@@ -1,0 +1,55 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json",
+  "name": "barDefCost",
+  "position": {
+    "x": 752,
+    "y": 124,
+    "z": 42000,
+    "height": 276,
+    "width": 512,
+    "tabOrder": 42
+  },
+  "visual": {
+    "visualType": "clusteredBarChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactQuality"
+                    }
+                  },
+                  "Property": "defect_type"
+                }
+              },
+              "queryRef": "FactQuality.defect_type",
+              "nativeQueryRef": "defect_type"
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Defect Cost"
+                }
+              },
+              "queryRef": "_Measures.Defect Cost",
+              "nativeQueryRef": "Defect Cost"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

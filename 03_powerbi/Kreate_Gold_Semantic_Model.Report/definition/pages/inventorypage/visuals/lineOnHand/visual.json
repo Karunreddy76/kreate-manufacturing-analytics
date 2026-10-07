@@ -1,0 +1,55 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json",
+  "name": "lineOnHand",
+  "position": {
+    "x": 752,
+    "y": 124,
+    "z": 54000,
+    "height": 276,
+    "width": 512,
+    "tabOrder": 54
+  },
+  "visual": {
+    "visualType": "lineChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimDate"
+                    }
+                  },
+                  "Property": "Date"
+                }
+              },
+              "queryRef": "DimDate.Date",
+              "nativeQueryRef": "Date"
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Resin On Hand Kg"
+                }
+              },
+              "queryRef": "_Measures.Resin On Hand Kg",
+              "nativeQueryRef": "Resin On Hand Kg"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

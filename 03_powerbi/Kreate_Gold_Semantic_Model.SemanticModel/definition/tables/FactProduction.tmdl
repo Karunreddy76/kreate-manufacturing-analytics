@@ -1,0 +1,94 @@
+table FactProduction
+	lineageTag: 982748d4-11c9-4341-896d-bf7e22f8cf6a
+
+	column run_id
+		dataType: string
+		summarizeBy: none
+		sourceColumn: run_id
+		lineageTag: f3e4a5dc-5f41-4212-8750-31eb13d4ad9f
+
+	column work_order_id
+		dataType: string
+		summarizeBy: none
+		sourceColumn: work_order_id
+		lineageTag: 96f0a713-c62f-4f5d-a3be-621d1ba28a4e
+
+	column date_key
+		dataType: int64
+		isHidden
+		summarizeBy: none
+		sourceColumn: date_key
+		lineageTag: 74462a55-5361-446f-a5e3-6cd447588488
+
+	column plant_key
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: plant_key
+		lineageTag: 71cad8a2-ed42-4e15-bf64-2b172c8d71ad
+
+	column machine_key
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: machine_key
+		lineageTag: e52f1ef4-3fd2-41fd-9c07-cbe7d6613d1a
+
+	column product_key
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: product_key
+		lineageTag: 83ba98ef-c6ae-4ade-bf48-bcb31a5f19c8
+
+	column employee_key
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: employee_key
+		lineageTag: 19d9d7c2-55b6-4a9e-ac45-e43fb684079b
+
+	column shift
+		dataType: int64
+		summarizeBy: none
+		sourceColumn: shift
+		lineageTag: 6a45e935-e269-4553-89b3-93b61a9d9b46
+
+	column planned_qty
+		dataType: int64
+		sourceColumn: planned_qty
+		lineageTag: 7439497f-f3ce-4c5c-8583-181572dd616d
+
+	column good_qty
+		dataType: int64
+		sourceColumn: good_qty
+		lineageTag: 708c15d9-ffc2-4669-98f0-59bf1b9af99e
+
+	column scrap_qty
+		dataType: int64
+		sourceColumn: scrap_qty
+		lineageTag: f2de1a77-e629-4dfb-a5e4-26c5c3061f97
+
+	column downtime_minutes
+		dataType: int64
+		sourceColumn: downtime_minutes
+		lineageTag: 854b689e-ce0d-43be-9f91-ac4b7a31447a
+
+	column resin_used_kg
+		dataType: double
+		sourceColumn: resin_used_kg
+		lineageTag: 13937943-a35d-48e6-a448-f3e7beb429a8
+
+	column cycle_time_sec
+		dataType: double
+		sourceColumn: cycle_time_sec
+		lineageTag: 30fc2a8a-e709-4b12-a9fa-473ede35d98f
+
+	partition FactProduction = m
+		mode: import
+		source =
+				let
+					Source = Sql.Database("tcwsjavlhnnetiifpbcg2bxofm-su3t4k5jz3aufhtbw7nffxawby.datawarehouse.fabric.microsoft.com", "kreate_lakehouse"),
+					Data = Source{[Schema = "dbo", Item = "FactProduction"]}[Data]
+				in
+					Data

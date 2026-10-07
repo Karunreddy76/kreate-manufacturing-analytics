@@ -1,0 +1,72 @@
+table FactQuality
+	lineageTag: 2de382cc-aeda-4450-9352-fa6274ddd2b2
+
+	column inspection_id
+		dataType: string
+		summarizeBy: none
+		sourceColumn: inspection_id
+		lineageTag: 0e489291-e024-4130-86cd-398d2578defa
+
+	column run_id
+		dataType: string
+		summarizeBy: none
+		sourceColumn: run_id
+		lineageTag: 5af8b205-9f7c-4c4d-93ae-3d095998eee1
+
+	column date_key
+		dataType: int64
+		isHidden
+		summarizeBy: none
+		sourceColumn: date_key
+		lineageTag: 75aa1b59-de34-49ab-834d-c92cebe11629
+
+	column plant_key
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: plant_key
+		lineageTag: 7a12a07a-0d57-43d7-b9c0-af76b3f1b1a6
+
+	column product_key
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: product_key
+		lineageTag: 5065c765-dbf8-46b9-9309-e5f4d7d9d7bf
+
+	column defect_type
+		dataType: string
+		summarizeBy: none
+		sourceColumn: defect_type
+		lineageTag: 5cbfbb31-1d51-411c-a039-1bc56ae725a7
+
+	column inspected_qty
+		dataType: int64
+		sourceColumn: inspected_qty
+		lineageTag: 9177e62c-c7f6-4243-80c2-9646a42979dc
+
+	column defect_qty
+		dataType: int64
+		sourceColumn: defect_qty
+		lineageTag: c1d3ad9b-6bf4-4900-a242-56f41b82fa32
+
+	column cost
+		dataType: double
+		formatString: $#,##0.00
+		sourceColumn: cost
+		lineageTag: 1e2bf2eb-9321-4dfa-8a25-190f51c4ed8e
+
+	column result
+		dataType: string
+		summarizeBy: none
+		sourceColumn: result
+		lineageTag: 80beca97-e0a0-4ed8-819c-17b9bdb333c5
+
+	partition FactQuality = m
+		mode: import
+		source =
+				let
+					Source = Sql.Database("tcwsjavlhnnetiifpbcg2bxofm-su3t4k5jz3aufhtbw7nffxawby.datawarehouse.fabric.microsoft.com", "kreate_lakehouse"),
+					Data = Source{[Schema = "dbo", Item = "FactQuality"]}[Data]
+				in
+					Data

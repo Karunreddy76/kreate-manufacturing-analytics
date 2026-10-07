@@ -1,0 +1,37 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json",
+  "name": "card3",
+  "position": {
+    "x": 850,
+    "y": 8,
+    "z": 63000,
+    "height": 104,
+    "width": 198,
+    "tabOrder": 63
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Demand vs Production Variance %"
+                }
+              },
+              "queryRef": "_Measures.Demand vs Production Variance %",
+              "nativeQueryRef": "Demand vs Production Variance %"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json",
+  "name": "card2",
+  "position": {
+    "x": 576,
+    "y": 8,
+    "z": 27000,
+    "height": 104,
+    "width": 164,
+    "tabOrder": 27
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "In Full %"
+                }
+              },
+              "queryRef": "_Measures.In Full %",
+              "nativeQueryRef": "In Full %"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

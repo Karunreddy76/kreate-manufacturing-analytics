@@ -1,0 +1,41 @@
+product_id,sku,product_name,category,resin_type,unit_weight_kg,standard_cost,unit_price
+SKU-1007,SKU-1007,27 Gallon Heavy-Duty Storage Tote,Storage Totes,PP,1.85,7.26,12.35
+SKU-1014,SKU-1014,18 Gallon Latching Storage Tote,Storage Totes,PP,1.25,5.13,8.57
+SKU-1021,SKU-1021,10 Gallon Clear Storage Tote,Storage Totes,PP,0.85,3.35,5.11
+SKU-1028,SKU-1028,45 Gallon Wheeled Storage Tote,Storage Totes,HDPE,2.9,10.96,16.48
+SKU-1035,SKU-1035,6 Quart Stackable Storage Box,Storage Totes,PP,0.32,1.5,2.53
+SKU-1042,SKU-1042,5-Tier Plastic Shelving Unit 36in,Shelving,PP,4.6,16.34,28.78
+SKU-1049,SKU-1049,4-Tier Ventilated Shelving Unit 24in,Shelving,PP,3.4,12.16,18.23
+SKU-1056,SKU-1056,3-Tier Utility Shelf,Shelving,PP,2.2,7.42,12.44
+SKU-1063,SKU-1063,Heavy-Duty Garage Shelving 48in,Shelving,HDPE,6.1,18.77,28.37
+SKU-1070,SKU-1070,Corner Shelving Unit,Shelving,PP,2.75,8.57,12.43
+SKU-1077,SKU-1077,32 Gallon Outdoor Trash Can,Waste Containers,HDPE,3.1,10.98,17.67
+SKU-1084,SKU-1084,13 Gallon Kitchen Trash Can,Waste Containers,PP,1.15,5.47,8.14
+SKU-1091,SKU-1091,45 Gallon Wheeled Trash Bin,Waste Containers,HDPE,4.4,15.04,20.98
+SKU-1098,SKU-1098,7 Gallon Office Waste Basket,Waste Containers,PP,0.55,3.19,5.26
+SKU-1105,SKU-1105,20 Gallon Recycling Bin,Waste Containers,HDPE,1.95,7.16,9.88
+SKU-1112,SKU-1112,Folding Patio Chair,Seating,PP,2.35,8.74,13.91
+SKU-1119,SKU-1119,Stackable Outdoor Chair,Seating,PP,1.95,7.48,11.62
+SKU-1126,SKU-1126,Adirondack Chair,Seating,HDPE,4.85,13.77,19.66
+SKU-1133,SKU-1133,Kids Stack Chair 4-Pack,Seating,PP,1.6,6.25,8.49
+SKU-1140,SKU-1140,Folding Bench Seat,Seating,HDPE,3.7,12.03,19.12
+SKU-1147,SKU-1147,Raised Garden Bed 4x4,Garden,HDPE,5.2,17.94,29.46
+SKU-1154,SKU-1154,Round Planter Pot 16in,Garden,PP,0.75,2.49,4.05
+SKU-1161,SKU-1161,Rectangular Planter Box 24in,Garden,PP,1.05,4.0,5.7
+SKU-1168,SKU-1168,Garden Kneeler Pad Seat,Garden,PP,0.95,3.83,5.66
+SKU-1175,SKU-1175,Compost Bin 80L,Garden,HDPE,3.3,10.3,14.69
+SKU-1182,SKU-1182,Outdoor Side Table,Outdoor Furniture,PP,1.45,6.47,9.62
+SKU-1189,SKU-1189,Patio Loveseat Frame,Outdoor Furniture,HDPE,7.8,27.76,41.9
+SKU-1196,SKU-1196,Folding Picnic Table,Outdoor Furniture,HDPE,9.6,27.55,41.51
+SKU-1203,SKU-1203,Outdoor Coffee Table,Outdoor Furniture,PP,2.6,8.77,12.66
+SKU-1210,SKU-1210,Sun Lounger,Outdoor Furniture,PP,5.45,19.71,30.12
+SKU-1217,SKU-1217,Deck Storage Box 120 Gallon,Deck & Dock,HDPE,8.9,29.65,40.85
+SKU-1224,SKU-1224,Dock Float Drum,Deck & Dock,HDPE,6.7,18.79,27.32
+SKU-1231,SKU-1231,Deck Tile Interlocking 12-Pack,Deck & Dock,PP,2.15,7.04,10.18
+SKU-1238,SKU-1238,Dock Bumper Guard,Deck & Dock,HDPE,1.35,5.18,8.0
+SKU-1245,SKU-1245,Outdoor Stair Step,Deck & Dock,HDPE,2.95,11.57,18.78
+SKU-1252,SKU-1252,Freestanding Utility Sink 24in,Utility Sinks,PP,3.85,12.97,22.34
+SKU-1259,SKU-1259,Wall-Mount Utility Sink,Utility Sinks,PP,2.45,8.3,12.29
+SKU-1266,SKU-1266,Double Basin Utility Sink,Utility Sinks,PP,5.1,15.93,27.15
+SKU-1273,SKU-1273,Utility Sink with Cabinet,Utility Sinks,HDPE,6.35,18.58,26.09
+SKU-1280,SKU-1280,Portable Wash Sink,Utility Sinks,PP,2.05,7.23,11.97

@@ -1,0 +1,81 @@
+table DimEmployee
+	lineageTag: 14873e4f-84f0-42f9-b480-271745e11564
+
+	column employee_key
+		dataType: string
+		isHidden
+		isKey
+		summarizeBy: none
+		sourceColumn: employee_key
+		lineageTag: 3e295479-2cc6-483e-ad3b-b85c8bd05e85
+
+	column employee_id
+		dataType: string
+		summarizeBy: none
+		sourceColumn: employee_id
+		lineageTag: 3e3a2078-ac06-45cb-b453-bcd3768522b4
+
+	column full_name
+		dataType: string
+		summarizeBy: none
+		sourceColumn: full_name
+		lineageTag: eea7b2df-c68f-4b18-9e31-16d5ebf7d452
+
+	column first_name
+		dataType: string
+		summarizeBy: none
+		sourceColumn: first_name
+		lineageTag: 97264ded-9e16-4537-846b-b538fec5781f
+
+	column last_name
+		dataType: string
+		summarizeBy: none
+		sourceColumn: last_name
+		lineageTag: af747e67-ae69-40f2-9335-ed35ce133d9f
+
+	column plant_key
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: plant_key
+		lineageTag: fffe7415-b5a5-4059-8dd3-d89429929a33
+
+	column plant_id
+		dataType: string
+		summarizeBy: none
+		sourceColumn: plant_id
+		lineageTag: 71e416cd-88a0-475d-9b1b-5934ed3adcf1
+
+	column shift
+		dataType: int64
+		summarizeBy: none
+		sourceColumn: shift
+		lineageTag: afbc2ea7-ed08-447b-adac-1e6421780fa7
+
+	column role
+		dataType: string
+		summarizeBy: none
+		sourceColumn: role
+		lineageTag: 22e147a2-cb3c-4516-a471-a308051ebbbb
+
+	column hire_date
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		summarizeBy: none
+		sourceColumn: hire_date
+		lineageTag: f17b844d-ba10-41e3-be6a-ebd32fab121c
+
+	column employment_status
+		dataType: string
+		summarizeBy: none
+		sourceColumn: employment_status
+		lineageTag: aa3aad76-19f3-4978-b517-84177e1985f4
+
+	partition DimEmployee = m
+		mode: import
+		source =
+				let
+					Source = Sql.Database("tcwsjavlhnnetiifpbcg2bxofm-su3t4k5jz3aufhtbw7nffxawby.datawarehouse.fabric.microsoft.com", "kreate_lakehouse"),
+					Data = Source{[Schema = "dbo", Item = "DimEmployee"]}[Data]
+				in
+					Data

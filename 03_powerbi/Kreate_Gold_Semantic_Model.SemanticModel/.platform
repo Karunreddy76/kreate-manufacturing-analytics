@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "Kreate_Gold_Semantic_Model"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "a2d1d27d-d835-4d9b-ae37-39ef0c4c15ec"
+  }
+}

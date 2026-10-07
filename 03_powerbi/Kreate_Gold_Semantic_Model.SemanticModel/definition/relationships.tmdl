@@ -1,0 +1,64 @@
+relationship 1403e90d-3735-4e03-8821-518ef184c801
+	fromColumn: FactProduction.date_key
+	toColumn: DimDate.date_key
+
+relationship 74d7eb8b-6881-4d00-853a-95de78b61ab2
+	fromColumn: FactProduction.plant_key
+	toColumn: DimPlant.plant_key
+
+relationship 03b02380-fddd-415b-8975-ba1fd0d8e0dc
+	fromColumn: FactProduction.machine_key
+	toColumn: DimMachine.machine_key
+
+relationship 05f7cefb-f626-455a-97ab-c9c9e1f48d02
+	fromColumn: FactProduction.product_key
+	toColumn: DimProduct.product_key
+
+relationship ff2e81d8-4a99-4c15-9ec5-5b2538e7f177
+	fromColumn: FactQuality.date_key
+	toColumn: DimDate.date_key
+
+relationship 51d79699-8662-46a0-8fd8-e3ca71200ff6
+	fromColumn: FactQuality.plant_key
+	toColumn: DimPlant.plant_key
+
+relationship 854cf772-2800-4304-b533-07ff734a70de
+	fromColumn: FactQuality.product_key
+	toColumn: DimProduct.product_key
+
+relationship b2fd92d3-dac2-4dec-9e0d-72851ab929d8
+	fromColumn: FactSalesShipment.date_key
+	toColumn: DimDate.date_key
+
+relationship c3a107e0-c100-4463-8c18-edacf5e03bbc
+	fromColumn: FactSalesShipment.plant_key
+	toColumn: DimPlant.plant_key
+
+relationship e0ecc778-ac45-40c2-a45c-c9ddc6ea58f7
+	fromColumn: FactSalesShipment.product_key
+	toColumn: DimProduct.product_key
+
+relationship d9e4a1e4-d283-4b10-91e4-d41453d230a7
+	fromColumn: FactSalesShipment.retailer_key
+	toColumn: DimRetailer.retailer_key
+
+relationship af42a783-9698-4023-bdd1-276875c5df90
+	fromColumn: FactInventoryDaily.date_key
+	toColumn: DimDate.date_key
+
+relationship 4679ec98-4942-4bb1-b42a-1b5a9d644f29
+	fromColumn: FactInventoryDaily.plant_key
+	toColumn: DimPlant.plant_key
+
+relationship bb6ced50-5e60-453c-8610-d3a93d92f24a
+	fromColumn: FactRetailPOS.date_key
+	toColumn: DimDate.date_key
+
+relationship f9269e44-be67-43a5-b77e-db747e12c05a
+	fromColumn: FactRetailPOS.product_key
+	toColumn: DimProduct.product_key
+
+relationship 581cf0d7-6147-4c78-8b08-9f4ff3ce8173
+	fromColumn: FactRetailPOS.retailer_key
+	toColumn: DimRetailer.retailer_key
+

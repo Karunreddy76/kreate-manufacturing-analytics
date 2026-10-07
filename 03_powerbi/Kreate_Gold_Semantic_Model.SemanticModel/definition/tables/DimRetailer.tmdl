@@ -1,0 +1,31 @@
+table DimRetailer
+	lineageTag: 00ce8f99-a7ed-4891-9e6f-af20a05f2841
+
+	column retailer_key
+		dataType: string
+		isHidden
+		isKey
+		summarizeBy: none
+		sourceColumn: retailer_key
+		lineageTag: 20de8754-93a6-4549-a26d-5faa5d6611c1
+
+	column retailer_id
+		dataType: string
+		summarizeBy: none
+		sourceColumn: retailer_id
+		lineageTag: 691af45b-6193-4df3-8761-f6f4946a13e8
+
+	column retailer_name
+		dataType: string
+		summarizeBy: none
+		sourceColumn: retailer_name
+		lineageTag: 87972751-013b-4604-b841-cd40c57e7bf6
+
+	partition DimRetailer = m
+		mode: import
+		source =
+				let
+					Source = Sql.Database("tcwsjavlhnnetiifpbcg2bxofm-su3t4k5jz3aufhtbw7nffxawby.datawarehouse.fabric.microsoft.com", "kreate_lakehouse"),
+					Data = Source{[Schema = "dbo", Item = "DimRetailer"]}[Data]
+				in
+					Data

@@ -1,0 +1,73 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json",
+  "name": "mtxProdDef",
+  "position": {
+    "x": 232,
+    "y": 412,
+    "z": 43000,
+    "height": 300,
+    "width": 512,
+    "tabOrder": 43
+  },
+  "visual": {
+    "visualType": "pivotTable",
+    "query": {
+      "queryState": {
+        "Rows": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimProduct"
+                    }
+                  },
+                  "Property": "product_name"
+                }
+              },
+              "queryRef": "DimProduct.product_name",
+              "nativeQueryRef": "product_name"
+            }
+          ]
+        },
+        "Columns": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactQuality"
+                    }
+                  },
+                  "Property": "defect_type"
+                }
+              },
+              "queryRef": "FactQuality.defect_type",
+              "nativeQueryRef": "defect_type"
+            }
+          ]
+        },
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Defect Qty"
+                }
+              },
+              "queryRef": "_Measures.Defect Qty",
+              "nativeQueryRef": "Defect Qty"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

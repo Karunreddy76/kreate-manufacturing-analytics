@@ -1,0 +1,276 @@
+Good Qty :=
+SUM ( FactProduction[good_qty] )
+
+Scrap Qty :=
+SUM ( FactProduction[scrap_qty] )
+
+Total Produced Qty :=
+[Good Qty] + [Scrap Qty]
+
+Scrap % :=
+DIVIDE ( [Scrap Qty], [Total Produced Qty] )
+
+Downtime Minutes :=
+SUM ( FactProduction[downtime_minutes] )
+
+Downtime Hours :=
+DIVIDE ( [Downtime Minutes], 60 )
+
+Downtime Hours per 1K Good :=
+DIVIDE ( [Downtime Hours], DIVIDE ( [Good Qty], 1000 ) )
+
+Resin Used Kg :=
+SUM ( FactProduction[resin_used_kg] )
+
+Good per Kg Resin :=
+DIVIDE ( [Good Qty], [Resin Used Kg] )
+
+
+Defect Qty :=
+SUM ( FactQuality[defect_qty] )
+
+Defect Cost :=
+SUM ( FactQuality[cost] )
+
+Cost per Defect :=
+DIVIDE ( [Defect Cost], [Defect Qty] )
+
+Defect Share % :=
+DIVIDE (
+    [Defect Qty],
+    CALCULATE ( [Defect Qty], ALL ( FactQuality[defect_type] ) )
+)
+
+Defect Qty Running Total :=
+VAR CurrentDefect = SELECTEDVALUE ( FactQuality[defect_type] )
+RETURN
+IF (
+    NOT ISBLANK ( CurrentDefect ),
+    CALCULATE (
+        [Defect Qty],
+        FILTER (
+            ALL ( FactQuality[defect_type] ),
+            FactQuality[defect_type] <= CurrentDefect
+        )
+    )
+)
+
+
+Ordered Qty :=
+SUM ( FactSalesShipment[ordered_qty] )
+
+Shipped Qty :=
+SUM ( FactSalesShipment[shipped_qty] )
+
+Shipment Lines :=
+COUNTROWS ( FactSalesShipment )
+
+Revenue :=
+SUMX (
+    FactSalesShipment,
+    FactSalesShipment[shipped_qty] * FactSalesShipment[unit_price]
+)
+
+Gross Margin :=
+[Revenue]
+    - SUMX (
+        FactSalesShipment,
+        FactSalesShipment[shipped_qty]
+            * RELATED ( DimProduct[unit_cost] )
+    )
+
+Margin % :=
+DIVIDE ( [Gross Margin], [Revenue] )
+
+On Time Lines :=
+CALCULATE (
+    COUNTROWS ( FactSalesShipment ),
+    FILTER (
+        FactSalesShipment,
+        NOT ISBLANK ( FactSalesShipment[ship_date] )
+            && FactSalesShipment[ship_date] <= FactSalesShipment[promised_date]
+    )
+)
+
+In Full Lines :=
+CALCULATE (
+    COUNTROWS ( FactSalesShipment ),
+    FILTER (
+        FactSalesShipment,
+        FactSalesShipment[shipped_qty] >= FactSalesShipment[ordered_qty]
+    )
+)
+
+OTIF Lines :=
+CALCULATE (
+    COUNTROWS ( FactSalesShipment ),
+    FILTER (
+        FactSalesShipment,
+        NOT ISBLANK ( FactSalesShipment[ship_date] )
+            && FactSalesShipment[ship_date] <= FactSalesShipment[promised_date]
+            && FactSalesShipment[shipped_qty] >= FactSalesShipment[ordered_qty]
+    )
+)
+
+OTIF % :=
+DIVIDE ( [OTIF Lines], [Shipment Lines] )
+
+On Time % :=
+DIVIDE ( [On Time Lines], [Shipment Lines] )
+
+In Full % :=
+DIVIDE ( [In Full Lines], [Shipment Lines] )
+
+Late Shipments :=
+CALCULATE (
+    COUNTROWS ( FactSalesShipment ),
+    FILTER (
+        FactSalesShipment,
+        ( NOT ISBLANK ( FactSalesShipment[ship_date] )
+            && FactSalesShipment[ship_date] > FactSalesShipment[promised_date] )
+        || ( ISBLANK ( FactSalesShipment[ship_date] )
+            && FactSalesShipment[promised_date] < TODAY () )
+    )
+)
+
+Avg Days Late :=
+AVERAGEX (
+    FILTER (
+        FactSalesShipment,
+        NOT ISBLANK ( FactSalesShipment[ship_date] )
+            && FactSalesShipment[ship_date] > FactSalesShipment[promised_date]
+    ),
+    DATEDIFF ( FactSalesShipment[promised_date], FactSalesShipment[ship_date], DAY )
+)
+
+Fill Rate % :=
+DIVIDE ( [Shipped Qty], [Ordered Qty] )
+
+
+Resin On Hand Kg :=
+VAR MaxDate = MAX ( FactInventoryDaily[date_key] )
+RETURN
+CALCULATE (
+    SUM ( FactInventoryDaily[on_hand_kg] ),
+    FactInventoryDaily[date_key] = MaxDate
+)
+
+Resin Consumed Kg :=
+SUM ( FactInventoryDaily[consumed_kg] )
+
+Avg Daily Resin Consumption Kg :=
+VAR DaysInContext = COUNTROWS ( DimDate )
+RETURN
+DIVIDE ( [Resin Consumed Kg], DaysInContext )
+
+Avg On Hand Kg :=
+AVERAGEX (
+    VALUES ( FactInventoryDaily[date_key] ),
+    CALCULATE ( SUM ( FactInventoryDaily[on_hand_kg] ) )
+)
+
+Days of Supply :=
+DIVIDE ( [Resin On Hand Kg], [Avg Daily Resin Consumption Kg] )
+
+Inventory Turns (Annualised) :=
+VAR DaysInContext = COUNTROWS ( VALUES ( FactInventoryDaily[date_key] ) )
+VAR AnnualisedConsumption =
+    DIVIDE ( [Resin Consumed Kg] * 365, DaysInContext )
+RETURN
+DIVIDE ( AnnualisedConsumption, [Avg On Hand Kg] )
+
+Is Stockout Risk :=
+IF ( [Days of Supply] < 14, 1, 0 )
+
+
+POS Sold Qty :=
+SUM ( FactRetailPOS[sold_qty] )
+
+Sell-Through % :=
+DIVIDE ( [POS Sold Qty], [Shipped Qty] )
+
+Demand vs Production Variance :=
+[Good Qty] - [POS Sold Qty]
+
+Demand vs Production Variance % :=
+DIVIDE ( [Demand vs Production Variance], [POS Sold Qty] )
+
+Production to Demand Ratio :=
+DIVIDE ( [Good Qty], [POS Sold Qty] )
+
+
+Revenue PM :=
+CALCULATE ( [Revenue], DATEADD ( DimDate[Date], -1, MONTH ) )
+
+Revenue MoM % :=
+DIVIDE ( [Revenue] - [Revenue PM], [Revenue PM] )
+
+Revenue 3M Rolling :=
+CALCULATE (
+    [Revenue],
+    DATESINPERIOD ( DimDate[Date], MAX ( DimDate[Date] ), -3, MONTH )
+)
+
+Good Qty PM :=
+CALCULATE ( [Good Qty], DATEADD ( DimDate[Date], -1, MONTH ) )
+
+Good Qty MoM % :=
+DIVIDE ( [Good Qty] - [Good Qty PM], [Good Qty PM] )
+
+Good Qty 3M Rolling :=
+CALCULATE (
+    [Good Qty],
+    DATESINPERIOD ( DimDate[Date], MAX ( DimDate[Date] ), -3, MONTH )
+)
+
+Scrap % PM :=
+CALCULATE ( [Scrap %], DATEADD ( DimDate[Date], -1, MONTH ) )
+
+Scrap % MoM Change (pp) :=
+[Scrap %] - [Scrap % PM]
+
+Scrap % 3M Rolling :=
+VAR Good3M =
+    CALCULATE (
+        [Good Qty],
+        DATESINPERIOD ( DimDate[Date], MAX ( DimDate[Date] ), -3, MONTH )
+    )
+VAR Scrap3M =
+    CALCULATE (
+        [Scrap Qty],
+        DATESINPERIOD ( DimDate[Date], MAX ( DimDate[Date] ), -3, MONTH )
+    )
+RETURN
+DIVIDE ( Scrap3M, Good3M + Scrap3M )
+
+OTIF % PM :=
+CALCULATE ( [OTIF %], DATEADD ( DimDate[Date], -1, MONTH ) )
+
+OTIF % MoM Change (pp) :=
+[OTIF %] - [OTIF % PM]
+
+OTIF % 3M Rolling :=
+VAR OTIFLines3M =
+    CALCULATE (
+        [OTIF Lines],
+        DATESINPERIOD ( DimDate[Date], MAX ( DimDate[Date] ), -3, MONTH )
+    )
+VAR Lines3M =
+    CALCULATE (
+        [Shipment Lines],
+        DATESINPERIOD ( DimDate[Date], MAX ( DimDate[Date] ), -3, MONTH )
+    )
+RETURN
+DIVIDE ( OTIFLines3M, Lines3M )
+
+Defect Cost 3M Rolling :=
+CALCULATE (
+    [Defect Cost],
+    DATESINPERIOD ( DimDate[Date], MAX ( DimDate[Date] ), -3, MONTH )
+)
+
+POS Sold Qty 3M Rolling :=
+CALCULATE (
+    [POS Sold Qty],
+    DATESINPERIOD ( DimDate[Date], MAX ( DimDate[Date] ), -3, MONTH )
+)

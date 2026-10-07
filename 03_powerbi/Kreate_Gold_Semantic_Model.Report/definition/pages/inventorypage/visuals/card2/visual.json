@@ -1,0 +1,37 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json",
+  "name": "card2",
+  "position": {
+    "x": 752,
+    "y": 8,
+    "z": 51000,
+    "height": 104,
+    "width": 252,
+    "tabOrder": 51
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Days of Supply"
+                }
+              },
+              "queryRef": "_Measures.Days of Supply",
+              "nativeQueryRef": "Days of Supply"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json",
+  "name": "card1",
+  "position": {
+    "x": 438,
+    "y": 8,
+    "z": 61000,
+    "height": 104,
+    "width": 198,
+    "tabOrder": 61
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Good Qty"
+                }
+              },
+              "queryRef": "_Measures.Good Qty",
+              "nativeQueryRef": "Good Qty"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

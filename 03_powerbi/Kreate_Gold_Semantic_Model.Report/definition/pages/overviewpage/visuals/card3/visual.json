@@ -1,0 +1,37 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json",
+  "name": "card3",
+  "position": {
+    "x": 748,
+    "y": 8,
+    "z": 4000,
+    "height": 104,
+    "width": 164,
+    "tabOrder": 4
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Defect Cost"
+                }
+              },
+              "queryRef": "_Measures.Defect Cost",
+              "nativeQueryRef": "Defect Cost"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

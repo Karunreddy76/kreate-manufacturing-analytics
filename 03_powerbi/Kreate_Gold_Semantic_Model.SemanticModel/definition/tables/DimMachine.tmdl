@@ -1,0 +1,68 @@
+table DimMachine
+	lineageTag: cc3148e5-753a-4300-baf8-118f3983fdeb
+
+	column machine_key
+		dataType: string
+		isHidden
+		isKey
+		summarizeBy: none
+		sourceColumn: machine_key
+		lineageTag: 2b586301-5858-4741-af06-dc7432e1cdb0
+
+	column machine_id
+		dataType: string
+		summarizeBy: none
+		sourceColumn: machine_id
+		lineageTag: befccd6a-17e7-4159-a197-f70d82c16ec7
+
+	column machine_name
+		dataType: string
+		summarizeBy: none
+		sourceColumn: machine_name
+		lineageTag: 78ab28a2-d5fa-4bc9-8166-e5117c87d074
+
+	column plant_key
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: plant_key
+		lineageTag: 734437ec-92e3-43cc-a403-4d92fb263f69
+
+	column plant_id
+		dataType: string
+		summarizeBy: none
+		sourceColumn: plant_id
+		lineageTag: 60f451cf-6d0b-46d0-ab2c-d28348421526
+
+	column tonnage
+		dataType: int64
+		summarizeBy: none
+		sourceColumn: tonnage
+		lineageTag: c50f8e2e-e768-435d-8e38-447800d553e2
+
+	column manufacturer
+		dataType: string
+		summarizeBy: none
+		sourceColumn: manufacturer
+		lineageTag: f95e314b-ea67-4ce8-b633-65263168fe42
+
+	column install_year
+		dataType: int64
+		summarizeBy: none
+		sourceColumn: install_year
+		lineageTag: 4ddae17d-5a92-40b4-99a6-9b75bb4cafb3
+
+	column status
+		dataType: string
+		summarizeBy: none
+		sourceColumn: status
+		lineageTag: 90c7ef35-6ae4-4445-8354-2f05c0f9fe5b
+
+	partition DimMachine = m
+		mode: import
+		source =
+				let
+					Source = Sql.Database("tcwsjavlhnnetiifpbcg2bxofm-su3t4k5jz3aufhtbw7nffxawby.datawarehouse.fabric.microsoft.com", "kreate_lakehouse"),
+					Data = Source{[Schema = "dbo", Item = "DimMachine"]}[Data]
+				in
+					Data

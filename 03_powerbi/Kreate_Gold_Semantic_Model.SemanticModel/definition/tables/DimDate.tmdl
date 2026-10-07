@@ -1,0 +1,69 @@
+table DimDate
+	lineageTag: 019bbc9e-c90f-42d0-a1df-d58d964c5898
+	dataCategory: Time
+
+	column date_key
+		dataType: int64
+		isHidden
+		summarizeBy: none
+		sourceColumn: date_key
+		lineageTag: 99f09556-efe5-4b00-aaac-bdc8d59ec050
+
+	column Date
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		isKey
+		summarizeBy: none
+		sourceColumn: Date
+		lineageTag: 37e404de-b302-478d-8a8d-9b54ff1fbe47
+
+	column Year
+		dataType: int64
+		summarizeBy: none
+		sourceColumn: Year
+		lineageTag: 0a86330b-491c-431e-9008-08042caf9c1f
+
+	column Quarter
+		dataType: int64
+		summarizeBy: none
+		sourceColumn: Quarter
+		lineageTag: c8d0b5f3-11e2-4a9e-8a40-8c695a32fc20
+
+	column Month
+		dataType: int64
+		summarizeBy: none
+		sourceColumn: Month
+		lineageTag: ceabff01-c47b-4715-80e6-9090cfbfdef8
+
+	column MonthName
+		dataType: string
+		summarizeBy: none
+		sourceColumn: MonthName
+		lineageTag: 9aa71fb7-bc6b-4d1e-936f-99154361211f
+
+	column YearMonth
+		dataType: string
+		summarizeBy: none
+		sourceColumn: YearMonth
+		lineageTag: 9a10b607-c374-41d7-8919-35a72c42e9c6
+
+	column DayOfWeek
+		dataType: int64
+		summarizeBy: none
+		sourceColumn: DayOfWeek
+		lineageTag: f28f98ce-91ac-4910-bfeb-0c94c3d312e2
+
+	column IsWeekend
+		dataType: boolean
+		summarizeBy: none
+		sourceColumn: IsWeekend
+		lineageTag: b1d1f504-27bf-4df5-bb51-affe7105018a
+
+	partition DimDate = m
+		mode: import
+		source =
+				let
+					Source = Sql.Database("tcwsjavlhnnetiifpbcg2bxofm-su3t4k5jz3aufhtbw7nffxawby.datawarehouse.fabric.microsoft.com", "kreate_lakehouse"),
+					Data = Source{[Schema = "dbo", Item = "DimDate"]}[Data]
+				in
+					Data

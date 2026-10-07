@@ -1,0 +1,37 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json",
+  "name": "sldt",
+  "position": {
+    "x": 8,
+    "y": 484,
+    "z": 48000,
+    "height": 230,
+    "width": 210,
+    "tabOrder": 48
+  },
+  "visual": {
+    "visualType": "slicer",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactQuality"
+                    }
+                  },
+                  "Property": "defect_type"
+                }
+              },
+              "queryRef": "FactQuality.defect_type",
+              "nativeQueryRef": "defect_type"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

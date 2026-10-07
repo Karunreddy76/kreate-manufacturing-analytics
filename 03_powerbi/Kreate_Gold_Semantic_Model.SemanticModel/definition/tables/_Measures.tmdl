@@ -1,0 +1,292 @@
+table _Measures
+	lineageTag: 51d88bbe-ddf9-4856-95ac-6beb0bad9b4b
+
+	column Column1
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: Column1
+		lineageTag: 69e5f94c-4505-4060-bc5d-99b7293457eb
+
+	measure 'Good Qty' = SUM ( FactProduction[good_qty] )
+		formatString: #,##0
+		displayFolder: Production
+		lineageTag: 1ebc226a-3203-45ff-ac33-416178f57446
+
+	measure 'Scrap Qty' = SUM ( FactProduction[scrap_qty] )
+		formatString: #,##0
+		displayFolder: Production
+		lineageTag: 50f1bf74-3d8c-4503-8acc-0e1c45de7c03
+
+	measure 'Total Produced Qty' = [Good Qty] + [Scrap Qty]
+		formatString: #,##0
+		displayFolder: Production
+		lineageTag: 99334f23-eaf8-4fa3-9161-643373900cea
+
+	measure 'Scrap %' = DIVIDE ( [Scrap Qty], [Total Produced Qty] )
+		formatString: 0.00%
+		displayFolder: Production
+		lineageTag: 408cd30f-9f16-4918-8747-8966c2d8924d
+
+	measure 'Downtime Minutes' = SUM ( FactProduction[downtime_minutes] )
+		formatString: #,##0
+		displayFolder: Production
+		lineageTag: 3cda8121-29a5-432d-90c6-f10a7b8cb78b
+
+	measure 'Downtime Hours' = DIVIDE ( [Downtime Minutes], 60 )
+		formatString: #,##0.0
+		displayFolder: Production
+		lineageTag: d44b528b-424d-4344-864c-71d6ad86f3fd
+
+	measure 'Downtime Hours per 1K Good' = DIVIDE ( [Downtime Hours], DIVIDE ( [Good Qty], 1000 ) )
+		formatString: #,##0.00
+		displayFolder: Production
+		lineageTag: 188a80d1-40bd-4668-b431-a5b8b6e1d2c1
+
+	measure 'Resin Used Kg' = SUM ( FactProduction[resin_used_kg] )
+		formatString: #,##0
+		displayFolder: Production
+		lineageTag: fdac1b1e-6b22-4a2f-9ce3-bc35794b886c
+
+	measure 'Good per Kg Resin' = DIVIDE ( [Good Qty], [Resin Used Kg] )
+		formatString: #,##0.00
+		displayFolder: Production
+		lineageTag: 7118e395-a155-4770-973e-bad5bd69e024
+
+	measure 'Defect Qty' = SUM ( FactQuality[defect_qty] )
+		formatString: #,##0
+		displayFolder: Quality
+		lineageTag: 2061d55e-fa4e-4c2b-9e95-5c83404ca7d5
+
+	measure 'Defect Cost' = SUM ( FactQuality[cost] )
+		formatString: $#,##0
+		displayFolder: Quality
+		lineageTag: f7a36923-4fcc-4718-9147-09d621b76192
+
+	measure 'Cost per Defect' = DIVIDE ( [Defect Cost], [Defect Qty] )
+		formatString: $#,##0.00
+		displayFolder: Quality
+		lineageTag: d2e1bb86-24f5-4cc4-8c2c-1887d9821e4c
+
+	measure 'Defect Share %' = DIVIDE ( [Defect Qty], CALCULATE ( [Defect Qty], ALL ( FactQuality[defect_type] ) ) )
+		formatString: 0.00%
+		displayFolder: Quality
+		lineageTag: bae0092e-3079-4eb3-98d7-82d7d553ed01
+
+	measure 'Defect Qty Running Total' = VAR CurrentDefect = SELECTEDVALUE ( FactQuality[defect_type] ) RETURN IF ( NOT ISBLANK ( CurrentDefect ), CALCULATE ( [Defect Qty], FILTER ( ALL ( FactQuality[defect_type] ), FactQuality[defect_type] <= CurrentDefect ) ) )
+		formatString: #,##0
+		displayFolder: Quality
+		lineageTag: 41a09857-bdb1-4b8a-bf10-404e8c632021
+
+	measure 'Ordered Qty' = SUM ( FactSalesShipment[ordered_qty] )
+		formatString: #,##0
+		displayFolder: OTIF
+		lineageTag: 918a97e2-e6a2-41d8-a707-1af3005b9f82
+
+	measure 'Shipped Qty' = SUM ( FactSalesShipment[shipped_qty] )
+		formatString: #,##0
+		displayFolder: OTIF
+		lineageTag: 0114b061-31bf-497d-a140-bce64408ed05
+
+	measure 'Shipment Lines' = COUNTROWS ( FactSalesShipment )
+		formatString: #,##0
+		displayFolder: OTIF
+		lineageTag: 8070c2bb-38f7-4b9c-91ff-cfa76f7c80de
+
+	measure 'Revenue' = SUMX ( FactSalesShipment, FactSalesShipment[shipped_qty] * FactSalesShipment[unit_price] )
+		formatString: $#,##0
+		displayFolder: OTIF
+		lineageTag: 1d60e454-362d-4186-b870-8f45d631ab87
+
+	measure 'Gross Margin' = [Revenue] - SUMX ( FactSalesShipment, FactSalesShipment[shipped_qty] * RELATED ( DimProduct[unit_cost] ) )
+		formatString: $#,##0
+		displayFolder: OTIF
+		lineageTag: 0af5bb04-fbdd-44d7-b04f-797270aa3474
+
+	measure 'Margin %' = DIVIDE ( [Gross Margin], [Revenue] )
+		formatString: 0.00%
+		displayFolder: OTIF
+		lineageTag: 7f5f8133-bbf2-46b8-bba7-ec0063a8271b
+
+	measure 'On Time Lines' = CALCULATE ( COUNTROWS ( FactSalesShipment ), FILTER ( FactSalesShipment, NOT ISBLANK ( FactSalesShipment[ship_date] ) && FactSalesShipment[ship_date] <= FactSalesShipment[promised_date] ) )
+		formatString: #,##0
+		displayFolder: OTIF
+		lineageTag: 433f34be-2c79-4189-922e-4ac6f931568e
+
+	measure 'In Full Lines' = CALCULATE ( COUNTROWS ( FactSalesShipment ), FILTER ( FactSalesShipment, FactSalesShipment[shipped_qty] >= FactSalesShipment[ordered_qty] ) )
+		formatString: #,##0
+		displayFolder: OTIF
+		lineageTag: 178b9ca8-6fcc-4cec-ab40-81071014b24c
+
+	measure 'OTIF Lines' = CALCULATE ( COUNTROWS ( FactSalesShipment ), FILTER ( FactSalesShipment, NOT ISBLANK ( FactSalesShipment[ship_date] ) && FactSalesShipment[ship_date] <= FactSalesShipment[promised_date] && FactSalesShipment[shipped_qty] >= FactSalesShipment[ordered_qty] ) )
+		formatString: #,##0
+		displayFolder: OTIF
+		lineageTag: 42903765-b423-4e7a-a5ca-560af2a44d48
+
+	measure 'OTIF %' = DIVIDE ( [OTIF Lines], [Shipment Lines] )
+		formatString: 0.00%
+		displayFolder: OTIF
+		lineageTag: 5e7c8895-d7db-4cb7-9d6b-92f621e80daf
+
+	measure 'On Time %' = DIVIDE ( [On Time Lines], [Shipment Lines] )
+		formatString: 0.00%
+		displayFolder: OTIF
+		lineageTag: b84f6078-5ab8-4190-9d2e-3ced4324b932
+
+	measure 'In Full %' = DIVIDE ( [In Full Lines], [Shipment Lines] )
+		formatString: 0.00%
+		displayFolder: OTIF
+		lineageTag: 0297eb8d-0c92-413c-914f-8f05ab52402b
+
+	measure 'Late Shipments' = CALCULATE ( COUNTROWS ( FactSalesShipment ), FILTER ( FactSalesShipment, ( NOT ISBLANK ( FactSalesShipment[ship_date] ) && FactSalesShipment[ship_date] > FactSalesShipment[promised_date] ) || ( ISBLANK ( FactSalesShipment[ship_date] ) && FactSalesShipment[promised_date] < TODAY () ) ) )
+		formatString: #,##0
+		displayFolder: OTIF
+		lineageTag: 738d3c3f-a13f-453f-93d5-0bee30c6a0c8
+
+	measure 'Avg Days Late' = AVERAGEX ( FILTER ( FactSalesShipment, NOT ISBLANK ( FactSalesShipment[ship_date] ) && FactSalesShipment[ship_date] > FactSalesShipment[promised_date] ), DATEDIFF ( FactSalesShipment[promised_date], FactSalesShipment[ship_date], DAY ) )
+		formatString: #,##0.0
+		displayFolder: OTIF
+		lineageTag: de629fbe-9dc4-47ce-a6d1-436a9dfd24cb
+
+	measure 'Fill Rate %' = DIVIDE ( [Shipped Qty], [Ordered Qty] )
+		formatString: 0.00%
+		displayFolder: OTIF
+		lineageTag: 977a8584-6bb4-468f-a8a7-8c9652da8314
+
+	measure 'Resin On Hand Kg' = VAR MaxDate = MAX ( FactInventoryDaily[date_key] ) RETURN CALCULATE ( SUM ( FactInventoryDaily[on_hand_kg] ), FactInventoryDaily[date_key] = MaxDate )
+		formatString: #,##0
+		displayFolder: Inventory
+		lineageTag: ab8992ae-77d8-4767-8f62-33dc6124fd6a
+
+	measure 'Resin Consumed Kg' = SUM ( FactInventoryDaily[consumed_kg] )
+		formatString: #,##0
+		displayFolder: Inventory
+		lineageTag: b7f67274-15d0-4265-8a71-da8b06cb72b2
+
+	measure 'Avg Daily Resin Consumption Kg' = VAR DaysInContext = COUNTROWS ( DimDate ) RETURN DIVIDE ( [Resin Consumed Kg], DaysInContext )
+		formatString: #,##0.0 *(the fixed one)*
+		displayFolder: Inventory
+		lineageTag: e7258006-5e69-4503-855f-686b326a07ce
+
+	measure 'Avg On Hand Kg' = AVERAGEX ( VALUES ( FactInventoryDaily[date_key] ), CALCULATE ( SUM ( FactInventoryDaily[on_hand_kg] ) ) )
+		formatString: #,##0
+		displayFolder: Inventory
+		lineageTag: 8b645593-352f-4e6b-89cb-41bf6ad0698e
+
+	measure 'Days of Supply' = DIVIDE ( [Resin On Hand Kg], [Avg Daily Resin Consumption Kg] )
+		formatString: #,##0.0
+		displayFolder: Inventory
+		lineageTag: 5218c4c7-04c2-4f1d-abb3-ca12cfa816b0
+
+	measure 'Inventory Turns (Annualised)' = VAR DaysInContext = COUNTROWS ( VALUES ( FactInventoryDaily[date_key] ) ) VAR AnnualisedConsumption = DIVIDE ( [Resin Consumed Kg] * 365, DaysInContext ) RETURN DIVIDE ( AnnualisedConsumption, [Avg On Hand Kg] )
+		formatString: 0.00
+		displayFolder: Inventory
+		lineageTag: 09d1177b-190e-422e-882b-914337125c23
+
+	measure 'Is Stockout Risk' = IF ( [Days of Supply] < 14, 1, 0 )
+		formatString: #,##0
+		displayFolder: Inventory
+		lineageTag: ae130055-2b1b-49e8-8520-2e6c90089af2
+
+	measure 'POS Sold Qty' = SUM ( FactRetailPOS[sold_qty] )
+		formatString: #,##0
+		displayFolder: Demand
+		lineageTag: 279565b5-83ee-4cab-a03a-21eaeac5d86a
+
+	measure 'Sell-Through %' = DIVIDE ( [POS Sold Qty], [Shipped Qty] )
+		formatString: 0.00%
+		displayFolder: Demand
+		lineageTag: 91e13e2f-2fe4-4e2e-a71f-c5f6bfabe86f
+
+	measure 'Demand vs Production Variance' = [Good Qty] - [POS Sold Qty]
+		formatString: #,##0
+		displayFolder: Demand
+		lineageTag: 255a8e12-ac97-4b04-833a-5ad3a21c43b7
+
+	measure 'Demand vs Production Variance %' = DIVIDE ( [Demand vs Production Variance], [POS Sold Qty] )
+		formatString: 0.00%
+		displayFolder: Demand
+		lineageTag: 1eb01ef3-3311-4d2a-b99b-9b47da2adccc
+
+	measure 'Production to Demand Ratio' = DIVIDE ( [Good Qty], [POS Sold Qty] )
+		formatString: 0.00
+		displayFolder: Demand
+		lineageTag: 44db88a9-2abe-4df6-aa26-6f45e742b427
+
+	measure 'Revenue PM' = CALCULATE ( [Revenue], DATEADD ( DimDate[Date], -1, MONTH ) )
+		formatString: $#,##0
+		displayFolder: Time Intelligence
+		lineageTag: 52e7beb1-5bd5-4580-b59a-2b8b75a879a1
+
+	measure 'Revenue MoM %' = DIVIDE ( [Revenue] - [Revenue PM], [Revenue PM] )
+		formatString: 0.00%
+		displayFolder: Time Intelligence
+		lineageTag: 155b9ef1-41aa-47ed-9b92-24d0d8b2515f
+
+	measure 'Revenue 3M Rolling' = CALCULATE ( [Revenue], DATESINPERIOD ( DimDate[Date], MAX ( DimDate[Date] ), -3, MONTH ) )
+		formatString: $#,##0
+		displayFolder: Time Intelligence
+		lineageTag: b906b9fe-fa05-401e-80b9-e9c3be933405
+
+	measure 'Good Qty PM' = CALCULATE ( [Good Qty], DATEADD ( DimDate[Date], -1, MONTH ) )
+		formatString: #,##0
+		displayFolder: Time Intelligence
+		lineageTag: 866a7498-2c2f-4fa3-871b-d376a0497061
+
+	measure 'Good Qty MoM %' = DIVIDE ( [Good Qty] - [Good Qty PM], [Good Qty PM] )
+		formatString: 0.00%
+		displayFolder: Time Intelligence
+		lineageTag: a894e719-c11d-4911-bc7d-0d5734753963
+
+	measure 'Good Qty 3M Rolling' = CALCULATE ( [Good Qty], DATESINPERIOD ( DimDate[Date], MAX ( DimDate[Date] ), -3, MONTH ) )
+		formatString: #,##0
+		displayFolder: Time Intelligence
+		lineageTag: 55505012-619f-41ab-9158-f581220a6cc7
+
+	measure 'Scrap % PM' = CALCULATE ( [Scrap %], DATEADD ( DimDate[Date], -1, MONTH ) )
+		formatString: 0.00%
+		displayFolder: Time Intelligence
+		lineageTag: 80600be0-d045-46f1-beb4-e33c3af45059
+
+	measure 'Scrap % MoM Change (pp)' = [Scrap %] - [Scrap % PM]
+		formatString: 0.00% *(shows as % = percentage points)*
+		displayFolder: Time Intelligence
+		lineageTag: 0a23ebfc-e192-4c38-b646-deda71d6a62e
+
+	measure 'Scrap % 3M Rolling' = VAR Good3M = CALCULATE ( [Good Qty], DATESINPERIOD ( DimDate[Date], MAX ( DimDate[Date] ), -3, MONTH ) ) VAR Scrap3M = CALCULATE ( [Scrap Qty], DATESINPERIOD ( DimDate[Date], MAX ( DimDate[Date] ), -3, MONTH ) ) RETURN DIVIDE ( Scrap3M, Good3M + Scrap3M )
+		formatString: 0.00%
+		displayFolder: Time Intelligence
+		lineageTag: da3bb5f1-1288-4978-a9ef-1959190c0914
+
+	measure 'OTIF % PM' = CALCULATE ( [OTIF %], DATEADD ( DimDate[Date], -1, MONTH ) )
+		formatString: 0.00%
+		displayFolder: Time Intelligence
+		lineageTag: 49573931-2f15-4e2e-9834-8ab93400a8c1
+
+	measure 'OTIF % MoM Change (pp)' = [OTIF %] - [OTIF % PM]
+		formatString: 0.00% *(shows as % = percentage points)*
+		displayFolder: Time Intelligence
+		lineageTag: b8de69d7-d998-4288-bff5-93b3f9d0212a
+
+	measure 'OTIF % 3M Rolling' = VAR OTIFLines3M = CALCULATE ( [OTIF Lines], DATESINPERIOD ( DimDate[Date], MAX ( DimDate[Date] ), -3, MONTH ) ) VAR Lines3M = CALCULATE ( [Shipment Lines], DATESINPERIOD ( DimDate[Date], MAX ( DimDate[Date] ), -3, MONTH ) ) RETURN DIVIDE ( OTIFLines3M, Lines3M )
+		formatString: 0.00%
+		displayFolder: Time Intelligence
+		lineageTag: 9a50284c-e650-4ea4-85d7-79e0cffabf59
+
+	measure 'Defect Cost 3M Rolling' = CALCULATE ( [Defect Cost], DATESINPERIOD ( DimDate[Date], MAX ( DimDate[Date] ), -3, MONTH ) )
+		formatString: $#,##0
+		displayFolder: Time Intelligence
+		lineageTag: 98ff601f-6a77-4edd-9617-256c68d92f61
+
+	measure 'POS Sold Qty 3M Rolling' = CALCULATE ( [POS Sold Qty], DATESINPERIOD ( DimDate[Date], MAX ( DimDate[Date] ), -3, MONTH ) )
+		formatString: #,##0
+		displayFolder: Time Intelligence
+		lineageTag: 1f952c3f-05c3-45ae-8af8-b03a358c2e7e
+
+	partition _Measures = m
+		mode: import
+		source =
+				let
+					Source = #table(type table [Column1 = text], {})
+				in
+					Source

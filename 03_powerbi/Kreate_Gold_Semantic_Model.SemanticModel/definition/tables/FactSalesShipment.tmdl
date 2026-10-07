@@ -1,0 +1,106 @@
+table FactSalesShipment
+	lineageTag: 09ee09f9-01ad-4023-8ce5-531558038115
+
+	column sales_order_line_id
+		dataType: string
+		summarizeBy: none
+		sourceColumn: sales_order_line_id
+		lineageTag: c0412ea6-8443-43c0-b624-051a1c1d758a
+
+	column sales_order_id
+		dataType: string
+		summarizeBy: none
+		sourceColumn: sales_order_id
+		lineageTag: 701c2c12-88f6-4105-99ac-21fc4d07205f
+
+	column date_key
+		dataType: int64
+		isHidden
+		summarizeBy: none
+		sourceColumn: date_key
+		lineageTag: 0294755f-78f4-482f-9a92-79881a171149
+
+	column retailer_key
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: retailer_key
+		lineageTag: 5d5a0735-30f4-40ff-8f09-1b11808d0754
+
+	column product_key
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: product_key
+		lineageTag: 610ff404-0c65-4bc6-8b93-bcc7698d3b29
+
+	column plant_key
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: plant_key
+		lineageTag: 50467013-e133-48b9-987c-3e59f55a4ad1
+
+	column order_date
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		summarizeBy: none
+		sourceColumn: order_date
+		lineageTag: 57966004-2729-4490-b554-ecce0e3eb0e6
+
+	column promised_date
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		summarizeBy: none
+		sourceColumn: promised_date
+		lineageTag: 3b1162bc-c8ee-4555-8336-349cc79e7dbc
+
+	column ship_date
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		summarizeBy: none
+		sourceColumn: ship_date
+		lineageTag: 652e2cae-6d40-46e3-bb77-5bcfcf3ccad9
+
+	column delivery_date
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		summarizeBy: none
+		sourceColumn: delivery_date
+		lineageTag: 2edef1e0-5c4c-42b8-8302-b82fbd77505d
+
+	column ordered_qty
+		dataType: int64
+		sourceColumn: ordered_qty
+		lineageTag: 23a9d90a-5233-4c3e-bf4e-0237511ed619
+
+	column shipped_qty
+		dataType: int64
+		sourceColumn: shipped_qty
+		lineageTag: 6c25b457-1c67-45bf-a22e-b08914f7b9c5
+
+	column unit_price
+		dataType: double
+		formatString: $#,##0.00
+		sourceColumn: unit_price
+		lineageTag: a1179ef1-beac-4f35-89ce-30c12bd1b641
+
+	column shipment_count
+		dataType: int64
+		sourceColumn: shipment_count
+		lineageTag: 902393ef-46ca-4bff-ad7c-c5e67d5a114c
+
+	column line_revenue
+		dataType: double
+		formatString: $#,##0.00
+		sourceColumn: line_revenue
+		lineageTag: 390ae28c-9ab8-423f-a40c-4fd40530050d
+
+	partition FactSalesShipment = m
+		mode: import
+		source =
+				let
+					Source = Sql.Database("tcwsjavlhnnetiifpbcg2bxofm-su3t4k5jz3aufhtbw7nffxawby.datawarehouse.fabric.microsoft.com", "kreate_lakehouse"),
+					Data = Source{[Schema = "dbo", Item = "FactSalesShipment"]}[Data]
+				in
+					Data
